@@ -19,7 +19,7 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="w-full flex flex-col gap-1.5">
         {label && (
-          <label htmlFor={selectId} className="text-sm font-medium text-[#292a2e]">
+          <label htmlFor={selectId} className="font-pixel-sub text-sm text-gray-400">
             {label}
           </label>
         )}
@@ -29,10 +29,10 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             ref={ref}
             id={selectId}
             disabled={disabled}
-            className={`w-full appearance-none bg-white text-[#292a2e] border rounded-xl text-sm transition-all duration-150 py-2.5 pl-3.5 pr-10 focus:outline-none focus:ring-2 disabled:bg-[#f8f8f8] disabled:cursor-not-allowed cursor-pointer ${
+            className={`w-full appearance-none bg-gray-900 text-white border-2 text-sm font-pixel-sub transition-all duration-150 py-2.5 pl-3.5 pr-10 focus:outline-none focus:shadow-[4px_4px_0_#000] disabled:bg-gray-800 disabled:cursor-not-allowed cursor-pointer ${
               error
-                ? "border-[#ae2e24] focus:border-[#ae2e24] focus:ring-[#ae2e24]/20"
-                : "border-[#e2e8f0] focus:border-[#0065ff] focus:ring-[#0065ff]/20"
+                ? "border-red-500 focus:border-red-400"
+                : "border-gray-500 focus:border-green-400"
             } ${className}`}
             {...props}
           >
@@ -43,19 +43,17 @@ export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
             ))}
           </select>
 
-          <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-[#6b778c]">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-            </svg>
+          <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
+            <i className="fa-solid fa-chevron-down"></i>
           </div>
         </div>
 
         {error ? (
-          <span className="text-xs font-medium text-[#ae2e24] flex items-center gap-1">
+          <span className="font-pixel-sub text-xs text-red-500 flex items-center gap-1">
             {error}
           </span>
         ) : helperText ? (
-          <span className="text-xs text-[#6b778c]">{helperText}</span>
+          <span className="font-pixel-sub text-xs text-gray-500">{helperText}</span>
         ) : null}
       </div>
     );

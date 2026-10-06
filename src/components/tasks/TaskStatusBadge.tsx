@@ -17,22 +17,25 @@ export interface TaskStatusBadgeProps {
 
 const statusConfig: Record<
   TaskStatus,
-  { label: string; icon: string; styles: string }
+  { label: string; dot: string; styles: string; textStyle: string }
 > = {
   TODO: {
     label: "To Do",
-    icon: "○",
-    styles: "bg-slate-100 text-slate-700 border-slate-200",
+    dot: "bg-slate-300",
+    styles: "bg-transparent border-none px-0 py-0",
+    textStyle: "text-[13px] font-medium text-[#0f172a] tracking-tight",
   },
   IN_PROGRESS: {
     label: "In Progress",
-    icon: "◐",
-    styles: "bg-[#deebff] text-[#0065ff] border-[#0065ff]/30",
+    dot: "bg-[#0065ff]",
+    styles: "bg-transparent border-none px-0 py-0",
+    textStyle: "text-[13px] font-medium text-[#0065ff] tracking-tight",
   },
   COMPLETED: {
     label: "Completed",
-    icon: "●",
-    styles: "bg-emerald-50 text-emerald-700 border-emerald-200",
+    dot: "bg-emerald-500",
+    styles: "bg-transparent border-none px-0 py-0",
+    textStyle: "text-[13px] font-medium text-emerald-700 tracking-tight",
   },
 };
 
@@ -45,13 +48,11 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
 
   return (
     <span
-      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border transition-colors ${config.styles} ${className}`}
+      className={`inline-flex items-center gap-2 ${config.styles} ${className}`}
       title={config.label}
     >
-      <span className="text-[10px] leading-none" aria-hidden="true">
-        {config.icon}
-      </span>
-      {!compact && <span>{config.label}</span>}
+      <span className={`w-2 h-2 rounded-full ${config.dot}`} aria-hidden="true" />
+      {!compact && <span className={config.textStyle}>{config.label}</span>}
     </span>
   );
 };

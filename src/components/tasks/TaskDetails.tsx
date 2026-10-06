@@ -9,8 +9,7 @@
 import React from "react";
 import { Card, CardContent } from "../ui/Card";
 import { Button } from "../ui/Button";
-import { TaskStatusBadge } from "./TaskStatusBadge";
-import { TaskPriorityBadge } from "./TaskPriorityBadge";
+import { Badge } from "../ui/Badge";
 import { formatDueDate, getInitials } from "../../lib/format";
 import type { TaskDetail, TaskStatus } from "../../lib/types";
 
@@ -46,10 +45,10 @@ export const TaskDetails: React.FC<TaskDetailsProps> = ({
   const nextAction = nextStatusMap[task.status];
 
   const dueDateClass = due.isOverdue
-    ? "text-[#ae2e24] font-semibold"
+    ? "text-red-500 font-bold"
     : due.isDueSoon
-    ? "text-amber-600 font-medium"
-    : "text-[#292a2e]";
+    ? "text-amber-500 font-bold"
+    : "text-gray-300";
 
   const formatTimestamp = (date: Date) =>
     date.toLocaleDateString("en-IN", {
@@ -67,11 +66,9 @@ export const TaskDetails: React.FC<TaskDetailsProps> = ({
         <button
           type="button"
           onClick={onBack}
-          className="inline-flex items-center gap-2 text-sm text-[#6b778c] hover:text-[#0065ff] transition-colors cursor-pointer bg-transparent border-none p-0 min-h-[44px]"
+          className="inline-flex items-center gap-2 font-pixel-sub text-sm text-gray-400 hover:text-green-300 transition-colors cursor-pointer bg-transparent border-none p-0 min-h-[44px]"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-          </svg>
+          <i className="fa-solid fa-arrow-left"></i>
           Back to tasks
         </button>
       )}
@@ -79,12 +76,12 @@ export const TaskDetails: React.FC<TaskDetailsProps> = ({
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div className="flex-1 min-w-0">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#292a2e] tracking-tight mb-3 break-words">
+          <h1 className="font-pixel-title text-2xl sm:text-3xl text-white tracking-tight mb-3 break-words">
             {task.title}
           </h1>
           <div className="flex items-center gap-3 flex-wrap">
-            <TaskStatusBadge status={task.status} />
-            <TaskPriorityBadge priority={task.priority} />
+            <Badge variant="status" status={task.status} />
+            <Badge variant="priority" priority={task.priority} />
           </div>
         </div>
 
@@ -97,13 +94,9 @@ export const TaskDetails: React.FC<TaskDetailsProps> = ({
               onClick={() => onStatusChange(task.id, nextAction.next)}
               icon={
                 nextAction.next === "COMPLETED" ? (
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-                  </svg>
+                  <i className="fa-solid fa-check"></i>
                 ) : (
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                  </svg>
+                  <i className="fa-solid fa-play"></i>
                 )
               }
             >
@@ -129,15 +122,15 @@ export const TaskDetails: React.FC<TaskDetailsProps> = ({
         <div className="lg:col-span-2">
           <Card>
             <CardContent>
-              <h2 className="text-base font-bold text-[#292a2e] mb-3">
+              <h2 className="font-pixel-title text-base text-gray-300 mb-3">
                 Description
               </h2>
               {task.description ? (
-                <p className="text-sm text-[#292a2e] leading-relaxed whitespace-pre-wrap break-words">
+                <p className="font-pixel-sub text-sm text-gray-300 leading-relaxed whitespace-pre-wrap break-words">
                   {task.description}
                 </p>
               ) : (
-                <p className="text-sm text-[#6b778c] italic">
+                <p className="font-pixel-sub text-sm text-gray-500 italic">
                   No description provided.
                 </p>
               )}
@@ -152,15 +145,11 @@ export const TaskDetails: React.FC<TaskDetailsProps> = ({
             <CardContent className="space-y-3">
               <DetailRow
                 label="Due Date"
-                icon={
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                  </svg>
-                }
+                icon={<i className="fa-regular fa-calendar text-gray-500"></i>}
               >
-                <span className={dueDateClass}>{due.label}</span>
+                <span className={`font-pixel-sub text-sm ${dueDateClass}`}>{due.label}</span>
                 {task.dueDate && (
-                  <span className="text-xs text-[#6b778c] block mt-0.5">
+                  <span className="font-pixel-sub text-xs text-gray-500 block mt-0.5">
                     {task.dueDate.toLocaleDateString("en-IN", {
                       weekday: "long",
                       day: "numeric",
@@ -171,43 +160,31 @@ export const TaskDetails: React.FC<TaskDetailsProps> = ({
                 )}
               </DetailRow>
 
-              <div className="border-t border-[#e2e8f0]" />
-
               {/* Assigned to */}
               <DetailRow
                 label="Assigned To"
-                icon={
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                }
+                icon={<i className="fa-solid fa-user text-gray-500"></i>}
               >
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex w-6 h-6 rounded-full bg-[#deebff] text-[#0065ff] text-[10px] font-bold items-center justify-center shrink-0">
+                  <span className="w-6 h-6 bg-blue-600 border border-black flex items-center justify-center font-pixel-title text-[8px] text-white shadow-[1px_1px_0_#000]">
                     {getInitials(task.assignedTo.name)}
                   </span>
-                  <span className="text-sm font-medium text-[#292a2e]">
+                  <span className="font-pixel-sub text-sm text-gray-300">
                     {task.assignedTo.name}
                   </span>
                 </div>
               </DetailRow>
 
-              <div className="border-t border-[#e2e8f0]" />
-
               {/* Created by */}
               <DetailRow
                 label="Created By"
-                icon={
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                  </svg>
-                }
+                icon={<i className="fa-solid fa-user-pen text-gray-500"></i>}
               >
                 <div className="flex items-center gap-2">
-                  <span className="inline-flex w-6 h-6 rounded-full bg-purple-50 text-purple-700 text-[10px] font-bold items-center justify-center shrink-0 border border-purple-200">
+                  <span className="w-6 h-6 bg-purple-600 border border-black flex items-center justify-center font-pixel-title text-[8px] text-white shadow-[1px_1px_0_#000]">
                     {getInitials(task.createdBy.name)}
                   </span>
-                  <span className="text-sm font-medium text-[#292a2e]">
+                  <span className="font-pixel-sub text-sm text-gray-300">
                     {task.createdBy.name}
                   </span>
                 </div>
@@ -220,28 +197,18 @@ export const TaskDetails: React.FC<TaskDetailsProps> = ({
             <CardContent className="space-y-2">
               <DetailRow
                 label="Created"
-                icon={
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                }
+                icon={<i className="fa-regular fa-clock text-gray-500"></i>}
               >
-                <span className="text-sm text-[#292a2e]">
+                <span className="font-pixel-sub text-sm text-gray-300">
                   {formatTimestamp(task.createdAt)}
                 </span>
               </DetailRow>
 
-              <div className="border-t border-[#e2e8f0]" />
-
               <DetailRow
                 label="Last Updated"
-                icon={
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                  </svg>
-                }
+                icon={<i className="fa-solid fa-clock-rotate-left text-gray-500"></i>}
               >
-                <span className="text-sm text-[#292a2e]">
+                <span className="font-pixel-sub text-sm text-gray-300">
                   {formatTimestamp(task.updatedAt)}
                 </span>
               </DetailRow>
@@ -263,8 +230,8 @@ interface DetailRowProps {
 
 const DetailRow: React.FC<DetailRowProps> = ({ label, icon, children }) => (
   <div className="space-y-1">
-    <div className="flex items-center gap-2 text-xs font-bold text-[#6b778c] uppercase tracking-wider">
-      <span className="text-[#6b778c]">{icon}</span>
+    <div className="flex items-center gap-2 font-pixel-sub text-xs text-gray-500 uppercase tracking-wider">
+      <span>{icon}</span>
       {label}
     </div>
     <div className="pl-6">{children}</div>

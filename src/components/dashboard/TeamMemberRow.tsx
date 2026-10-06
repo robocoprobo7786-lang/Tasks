@@ -1,8 +1,3 @@
-/**
- * src/components/dashboard/TeamMemberRow.tsx
- *
- * A single team-member row used in the admin dashboard's team section.
- */
 import React from "react";
 import { Badge } from "../ui/Badge";
 import { getInitials } from "../../lib/format";
@@ -14,28 +9,18 @@ export interface TeamMemberRowProps {
 
 export const TeamMemberRow: React.FC<TeamMemberRowProps> = ({ user }) => {
   return (
-    <div className="flex items-center justify-between py-3 border-b border-[#e2e8f0] last:border-b-0 gap-3">
-      <div className="flex items-center gap-3 min-w-0">
-        {/* Avatar */}
-        <div
-          className={`shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold border ${
-            user.isActive
-              ? "bg-[#deebff] text-[#0065ff] border-[#0065ff]/20"
-              : "bg-slate-100 text-slate-400 border-slate-200"
-          }`}
-        >
+    <div className="pixel-card-sub p-3 flex items-center justify-between gap-2 mb-3">
+      <div className="flex items-center space-x-3">
+        <div className={`w-8 h-8 ${user.role === 'ADMIN' ? 'bg-blue-600' : 'bg-emerald-600'} border-2 border-black flex items-center justify-center font-pixel-title text-[10px] text-white shadow-[1px_1px_0_#000]`}>
           {getInitials(user.name)}
         </div>
-
-        {/* Name + phone */}
-        <div className="min-w-0">
-          <p className="text-sm font-semibold text-[#292a2e] truncate">{user.name}</p>
-          <p className="text-xs text-[#6b778c]">{user.phone}</p>
+        <div>
+          <div className="font-pixel-sub text-base text-white font-bold">{user.name}</div>
+          <div className="font-pixel-sub text-xs text-gray-400 font-mono">{user.phone || user.id}</div>
         </div>
       </div>
 
-      {/* Role + active badges */}
-      <div className="flex items-center gap-2 shrink-0">
+      <div className="flex items-center space-x-2">
         <Badge variant="role" role={user.role} />
         <Badge variant="active" isActive={user.isActive} />
       </div>

@@ -239,11 +239,7 @@ export const AdminUsersPage: React.FC<AdminUsersPageProps> = ({ users }) => {
           <Button
             variant="primary"
             onClick={() => setView({ mode: "create" })}
-            icon={
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-              </svg>
-            }
+            icon={<i className="fa-solid fa-user-plus"></i>}
           >
             Create User
           </Button>
@@ -252,9 +248,9 @@ export const AdminUsersPage: React.FC<AdminUsersPageProps> = ({ users }) => {
 
       <UserFilters filters={filters} onFiltersChange={setFilters} />
 
-      <div className="flex items-center justify-between">
-        <p className="text-sm text-[#6b778c]">
-          Showing <span className="font-semibold text-[#292a2e]">{filteredUsers.length}</span> of {localUsers.length} users
+      <div className="flex items-center justify-between font-pixel-sub text-xs text-gray-400 mb-2">
+        <p>
+          Showing <span className="text-white font-bold">{filteredUsers.length}</span> of {localUsers.length} users
         </p>
       </div>
 
@@ -281,15 +277,15 @@ export const AdminUsersPage: React.FC<AdminUsersPageProps> = ({ users }) => {
           }
         />
       ) : (
-        <Card className="p-0 sm:p-0 overflow-hidden bg-transparent border-none sm:bg-white sm:border-solid sm:border-[#e2e8f0]">
-          <div className="p-0 sm:p-2">
+        <Card>
+          <CardContent>
             <UserTable
               users={filteredUsers}
               onUserClick={(id) => setView({ mode: "detail", userId: id })}
               onUserEdit={(id) => setView({ mode: "edit", userId: id })}
               onUserToggleActive={(id, status) => setToggleTarget({ id, currentStatus: status })}
             />
-          </div>
+          </CardContent>
         </Card>
       )}
 

@@ -14,36 +14,34 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   breadcrumbs,
 }) => {
   return (
-    <div className="flex flex-col gap-3 pb-6 border-b border-[#e2e8f0] mb-8">
-      {breadcrumbs && breadcrumbs.length > 0 && (
-        <nav className="flex items-center gap-2 text-xs text-[#6b778c]">
-          {breadcrumbs.map((crumb, idx) => (
-            <React.Fragment key={idx}>
-              {idx > 0 && <span>/</span>}
-              {crumb.href ? (
-                <a href={crumb.href} className="hover:text-[#0065ff] transition-colors">
-                  {crumb.label}
-                </a>
-              ) : (
-                <span className="font-medium text-[#292a2e]">{crumb.label}</span>
-              )}
-            </React.Fragment>
-          ))}
-        </nav>
-      )}
+    <div className="pixel-card p-5 flex flex-wrap items-center justify-between gap-4 mb-6">
+      <div>
+        {breadcrumbs && breadcrumbs.length > 0 && (
+          <div className="font-pixel-sub text-xs text-gray-400 mb-1">
+            {breadcrumbs.map((crumb, idx) => (
+              <React.Fragment key={idx}>
+                {idx > 0 && <span className="mx-1 text-green-500">/</span>}
+                {crumb.href ? (
+                  <a href={crumb.href} className="hover:text-green-300 transition-colors">
+                    {crumb.label}
+                  </a>
+                ) : (
+                  <span className="text-green-400">{crumb.label}</span>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        )}
 
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#292a2e] tracking-tight">
-            {title}
-          </h1>
-          {description && (
-            <p className="text-sm text-[#6b778c] mt-1 max-w-2xl">{description}</p>
-          )}
-        </div>
-
-        {actions && <div className="flex items-center gap-3 shrink-0">{actions}</div>}
+        <h2 className="font-pixel-title text-sm md:text-lg text-white tracking-wide">
+          {title}
+        </h2>
+        {description && (
+          <p className="font-pixel-sub text-base text-gray-300 mt-1 max-w-2xl">{description}</p>
+        )}
       </div>
+
+      {actions && <div className="flex items-center gap-3 shrink-0">{actions}</div>}
     </div>
   );
 };

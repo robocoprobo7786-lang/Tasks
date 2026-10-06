@@ -125,7 +125,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
       <div className="w-full flex flex-col gap-1.5">
         <label
           htmlFor="task-description"
-          className="text-sm font-medium text-[#292a2e]"
+          className="font-pixel-sub text-sm text-gray-400"
         >
           Description
         </label>
@@ -135,7 +135,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
           value={formData.description}
           onChange={(e) => updateField("description", e.target.value)}
           rows={4}
-          className="w-full bg-white text-[#292a2e] placeholder:text-[#6b778c] border border-[#e2e8f0] rounded-xl text-sm transition-all duration-150 py-2.5 px-3.5 focus:outline-none focus:ring-2 focus:border-[#0065ff] focus:ring-[#0065ff]/20 resize-y min-h-[100px]"
+          className="w-full bg-gray-900 text-white placeholder:text-gray-500 border-2 border-gray-500 font-pixel-sub text-sm transition-all duration-150 py-2.5 px-3.5 focus:outline-none focus:border-green-400 focus:shadow-[4px_4px_0_#000] resize-y min-h-[100px]"
         />
       </div>
 
@@ -178,7 +178,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
       </div>
 
       {/* Actions */}
-      <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#e2e8f0]">
+      <div className="flex items-center justify-end gap-4 pt-4">
         <Button
           type="button"
           variant="secondary"
@@ -191,11 +191,7 @@ export const TaskForm: React.FC<TaskFormProps> = ({
           type="submit"
           variant="primary"
           isLoading={isSubmitting}
-          icon={
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7" />
-            </svg>
-          }
+          icon={<i className="fa-solid fa-check"></i>}
         >
           {submitLabel}
         </Button>

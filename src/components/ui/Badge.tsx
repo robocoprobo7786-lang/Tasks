@@ -5,7 +5,7 @@ export type TaskPriorityType = "LOW" | "MEDIUM" | "HIGH";
 export type UserRoleType = "ADMIN" | "USER";
 
 export interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: "default" | "status" | "priority" | "role" | "active";
+  variant?: "default" | "status" | "priority" | "role" | "active" | "mvp";
   status?: TaskStatusType;
   priority?: TaskPriorityType;
   role?: UserRoleType;
@@ -22,63 +22,72 @@ export const Badge: React.FC<BadgeProps> = ({
   className = "",
   ...props
 }) => {
-  const baseClasses =
-    "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-semibold tracking-wide uppercase transition-colors";
-
-  let styles = "bg-[#f8f8f8] text-[#292a2e] border border-[#e2e8f0]";
+  const baseClasses = "pixel-badge";
+  let styles = "";
+  let dotColor = "bg-current";
   let label = children;
+  let pulse = false;
 
   if (variant === "status" && status) {
     switch (status) {
       case "TODO":
-        styles = "bg-slate-100 text-slate-700 border border-slate-200";
+        styles = "badge-todo";
         label = label || "To Do";
         break;
       case "IN_PROGRESS":
-        styles = "bg-[#deebff] text-[#0065ff] border border-[#0065ff]/30";
+        styles = "badge-in-progress";
         label = label || "In Progress";
         break;
       case "COMPLETED":
-        styles = "bg-[#fff8e6] text-[#b37700] border border-[#fca700]/40";
+        styles = "badge-completed";
         label = label || "Completed";
         break;
     }
   } else if (variant === "priority" && priority) {
     switch (priority) {
       case "LOW":
-        styles = "bg-slate-100 text-slate-600 border border-slate-200";
+        styles = "badge-low";
         label = label || "Low Priority";
         break;
       case "MEDIUM":
-        styles = "bg-[#deebff] text-[#0065ff] border border-[#0065ff]/20";
+        styles = "badge-medium";
         label = label || "Medium Priority";
         break;
       case "HIGH":
-        styles = "bg-amber-50 text-amber-700 border border-amber-200";
+        styles = "badge-high";
         label = label || "High Priority";
         break;
     }
   } else if (variant === "role" && role) {
     switch (role) {
       case "ADMIN":
-        styles = "bg-purple-50 text-purple-700 border border-purple-200";
+        styles = "badge-admin";
+        dotColor = "bg-blue-400";
         label = label || "Admin";
+        pulse = true;
         break;
       case "USER":
-        styles = "bg-slate-100 text-slate-700 border border-slate-200";
+        styles = "badge-user";
+        dotColor = "bg-emerald-400";
         label = label || "User";
+        pulse = true;
         break;
     }
   } else if (variant === "active" && typeof isActive === "boolean") {
-    styles = isActive
-      ? "bg-emerald-50 text-emerald-700 border border-emerald-200"
-      : "bg-slate-100 text-slate-500 border border-slate-200";
+    styles = isActive ? "badge-active" : "bg-gray-800 text-gray-400 border-gray-600";
+    dotColor = isActive ? "bg-green-400" : "bg-gray-500";
+    pulse = isActive;
     label = label || (isActive ? "Active" : "Inactive");
+  } else if (variant === "mvp") {
+    styles = "badge-mvp";
+    label = label || "MVP";
   }
 
   return (
     <span className={`${baseClasses} ${styles} ${className}`} {...props}>
-      <span className="w-1.5 h-1.5 rounded-full fill-current bg-current opacity-75" />
+      {variant !== "mvp" && (
+        <span className={`w-1.5 h-1.5 rounded-full ${dotColor} ${pulse ? 'dot-pulse' : ''}`} />
+      )}
       {label}
     </span>
   );

@@ -34,43 +34,31 @@ export const UserTable: React.FC<UserTableProps> = ({
   return (
     <>
       {/* ── Desktop Table (≥lg) ──────────────────────────────────────────── */}
-      <div className="hidden lg:block overflow-x-auto">
-        <table className="w-full text-left">
+      <div className="hidden lg:block overflow-x-auto mb-4">
+        <table className="w-full text-left border-collapse">
           <thead>
-            <tr className="border-b border-[#e2e8f0]">
-              <th className="pb-3 text-xs font-bold text-[#6b778c] uppercase tracking-wider pl-4">
-                Name
-              </th>
-              <th className="pb-3 text-xs font-bold text-[#6b778c] uppercase tracking-wider">
-                Contact
-              </th>
-              <th className="pb-3 text-xs font-bold text-[#6b778c] uppercase tracking-wider">
-                Role
-              </th>
-              <th className="pb-3 text-xs font-bold text-[#6b778c] uppercase tracking-wider">
-                Status
-              </th>
-              <th className="pb-3 text-xs font-bold text-[#6b778c] uppercase tracking-wider">
-                Joined
-              </th>
-              <th className="pb-3 text-xs font-bold text-[#6b778c] uppercase tracking-wider text-right pr-4">
-                Actions
-              </th>
+            <tr className="border-b-2 border-gray-800">
+              <th className="pb-3 font-pixel-sub text-xs text-gray-400 pl-4">Name</th>
+              <th className="pb-3 font-pixel-sub text-xs text-gray-400">Contact</th>
+              <th className="pb-3 font-pixel-sub text-xs text-gray-400">Role</th>
+              <th className="pb-3 font-pixel-sub text-xs text-gray-400">Status</th>
+              <th className="pb-3 font-pixel-sub text-xs text-gray-400">Joined</th>
+              <th className="pb-3 font-pixel-sub text-xs text-gray-400 text-right pr-4">Actions</th>
             </tr>
           </thead>
           <tbody>
             {users.map((user) => (
               <tr
                 key={user.id}
-                className={`border-b border-[#e2e8f0] last:border-b-0 hover:bg-[#f8f8f8]/50 transition-colors group ${!user.isActive ? "opacity-75" : ""}`}
+                className={`border-b border-gray-800 last:border-b-0 hover:bg-[#18201a] transition-colors duration-150 group ${!user.isActive ? "opacity-75" : ""}`}
               >
                 <td className="py-4 pr-4 pl-4">
                   <div className="flex items-center gap-3 min-w-0">
                     <div
-                      className={`shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold border ${
+                      className={`shrink-0 w-8 h-8 flex items-center justify-center font-pixel-title text-[8px] text-white shadow-[1px_1px_0_#000] border border-black ${
                         user.isActive
-                          ? "bg-[#deebff] text-[#0065ff] border-[#0065ff]/20"
-                          : "bg-slate-100 text-slate-400 border-slate-200"
+                          ? "bg-blue-600"
+                          : "bg-gray-600"
                       }`}
                     >
                       {getInitials(user.name)}
@@ -78,17 +66,17 @@ export const UserTable: React.FC<UserTableProps> = ({
                     <button
                       type="button"
                       onClick={() => onUserClick?.(user.id)}
-                      className="text-sm font-semibold text-[#292a2e] hover:text-[#0065ff] transition-colors text-left cursor-pointer bg-transparent border-none p-0 truncate"
+                      className="font-pixel-sub text-sm font-bold text-white hover:text-green-300 transition-colors text-left cursor-pointer bg-transparent border-none p-0 truncate"
                     >
                       {user.name}
                     </button>
                   </div>
                 </td>
                 <td className="py-4 pr-4">
-                  <div className="flex flex-col">
-                    <span className="text-sm text-[#292a2e]">{user.phone}</span>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="font-pixel-sub text-xs text-gray-400">{user.phone}</span>
                     {user.email && (
-                      <span className="text-xs text-[#6b778c]">{user.email}</span>
+                      <span className="font-pixel-sub text-xs text-gray-400">{user.email}</span>
                     )}
                   </div>
                 </td>
@@ -99,45 +87,39 @@ export const UserTable: React.FC<UserTableProps> = ({
                   <Badge variant="active" isActive={user.isActive} />
                 </td>
                 <td className="py-4 pr-4">
-                  <span className="text-sm text-[#6b778c]">
+                  <span className="font-pixel-sub text-xs text-gray-400">
                     {user.createdAt ? user.createdAt.toLocaleDateString() : "—"}
                   </span>
                 </td>
                 <td className="py-4 pl-4 pr-4 text-right">
-                  <div className="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity focus-within:opacity-100">
+                  <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                     {onUserEdit && (
                       <button
                         type="button"
                         onClick={() => onUserEdit(user.id)}
-                        className="p-2 rounded-lg text-[#6b778c] hover:text-[#0065ff] hover:bg-[#deebff]/40 transition-colors cursor-pointer min-h-[36px] min-w-[36px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#0065ff]/40"
+                        className="text-gray-500 hover:text-blue-400 px-2 cursor-pointer transition-colors"
                         title="Edit user"
                         aria-label={`Edit ${user.name}`}
                       >
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                        </svg>
+                        <i className="fa-solid fa-pen"></i>
                       </button>
                     )}
                     {onUserToggleActive && (
                       <button
                         type="button"
                         onClick={() => onUserToggleActive(user.id, user.isActive)}
-                        className={`p-2 rounded-lg text-[#6b778c] transition-colors cursor-pointer min-h-[36px] min-w-[36px] flex items-center justify-center focus:outline-none focus:ring-2 ${
+                        className={`px-2 cursor-pointer transition-colors ${
                           user.isActive
-                            ? "hover:text-amber-600 hover:bg-amber-50 focus:ring-amber-500/40"
-                            : "hover:text-emerald-600 hover:bg-emerald-50 focus:ring-emerald-500/40"
+                            ? "text-gray-500 hover:text-amber-500"
+                            : "text-gray-500 hover:text-green-400"
                         }`}
                         title={user.isActive ? "Deactivate user" : "Activate user"}
                         aria-label={user.isActive ? `Deactivate ${user.name}` : `Activate ${user.name}`}
                       >
                         {user.isActive ? (
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                          </svg>
+                          <i className="fa-solid fa-ban"></i>
                         ) : (
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                          </svg>
+                          <i className="fa-solid fa-check"></i>
                         )}
                       </button>
                     )}
@@ -154,15 +136,15 @@ export const UserTable: React.FC<UserTableProps> = ({
         {users.map((user) => (
           <div
             key={user.id}
-            className={`bg-white border border-[#e2e8f0] rounded-2xl p-4 shadow-xs shadow-slate-200/50 hover:shadow-sm hover:border-slate-300 transition-all duration-150 flex flex-col gap-3 ${!user.isActive ? "opacity-75" : ""}`}
+            className={`pixel-card-sub p-4 transition-all duration-150 flex flex-col gap-3 ${!user.isActive ? "opacity-75" : ""}`}
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex items-center gap-3 min-w-0">
                 <div
-                  className={`shrink-0 w-9 h-9 rounded-full flex items-center justify-center text-xs font-bold border ${
+                  className={`shrink-0 w-8 h-8 flex items-center justify-center font-pixel-title text-[8px] text-white shadow-[1px_1px_0_#000] border border-black ${
                     user.isActive
-                      ? "bg-[#deebff] text-[#0065ff] border-[#0065ff]/20"
-                      : "bg-slate-100 text-slate-400 border-slate-200"
+                      ? "bg-blue-600"
+                      : "bg-gray-600"
                   }`}
                 >
                   {getInitials(user.name)}
@@ -171,60 +153,54 @@ export const UserTable: React.FC<UserTableProps> = ({
                   <button
                     type="button"
                     onClick={() => onUserClick?.(user.id)}
-                    className="text-sm font-semibold text-[#292a2e] hover:text-[#0065ff] transition-colors text-left cursor-pointer bg-transparent border-none p-0 truncate block"
+                    className="font-pixel-sub text-sm font-bold text-white hover:text-green-300 transition-colors text-left cursor-pointer bg-transparent border-none p-0 truncate block"
                   >
                     {user.name}
                   </button>
-                  <p className="text-xs text-[#6b778c] truncate">{user.phone}</p>
+                  <p className="font-pixel-sub text-xs text-gray-400 truncate">{user.phone}</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1 shrink-0">
+              <div className="flex items-center gap-2 shrink-0">
                 {onUserEdit && (
                   <button
                     type="button"
                     onClick={() => onUserEdit(user.id)}
-                    className="p-2 rounded-lg text-[#6b778c] hover:text-[#0065ff] hover:bg-[#deebff]/40 transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-[#0065ff]/40"
+                    className="text-gray-500 hover:text-blue-400 cursor-pointer"
                     title="Edit user"
                     aria-label={`Edit ${user.name}`}
                   >
-                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                    </svg>
+                    <i className="fa-solid fa-pen"></i>
                   </button>
                 )}
                 {onUserToggleActive && (
                   <button
                     type="button"
                     onClick={() => onUserToggleActive(user.id, user.isActive)}
-                    className={`p-2 rounded-lg text-[#6b778c] transition-colors cursor-pointer min-h-[44px] min-w-[44px] flex items-center justify-center focus:outline-none focus:ring-2 ${
+                    className={`cursor-pointer ${
                       user.isActive
-                        ? "hover:text-amber-600 hover:bg-amber-50 focus:ring-amber-500/40"
-                        : "hover:text-emerald-600 hover:bg-emerald-50 focus:ring-emerald-500/40"
+                        ? "text-gray-500 hover:text-amber-500"
+                        : "text-gray-500 hover:text-green-400"
                     }`}
                     title={user.isActive ? "Deactivate user" : "Activate user"}
                     aria-label={user.isActive ? `Deactivate ${user.name}` : `Activate ${user.name}`}
                   >
                     {user.isActive ? (
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                      </svg>
+                      <i className="fa-solid fa-ban"></i>
                     ) : (
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
+                      <i className="fa-solid fa-check"></i>
                     )}
                   </button>
                 )}
               </div>
             </div>
 
-            <div className="flex items-center justify-between gap-2 flex-wrap">
+            <div className="flex items-center justify-between gap-2 flex-wrap mt-2">
               <div className="flex items-center gap-2">
                 <Badge variant="role" role={user.role} />
                 <Badge variant="active" isActive={user.isActive} />
               </div>
-              <span className="text-xs text-[#6b778c]">
+              <span className="font-pixel-sub text-xs text-gray-400">
                 Joined: {user.createdAt ? user.createdAt.toLocaleDateString() : "—"}
               </span>
             </div>

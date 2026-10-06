@@ -14,64 +14,81 @@ export const Header: React.FC<HeaderProps> = ({
   onToggleRole,
 }) => {
   return (
-    <header className="h-16 bg-white border-b border-[#e2e8f0] px-4 sm:px-6 lg:px-8 flex items-center justify-between sticky top-0 z-20 shrink-0">
-      <div className="flex items-center gap-3">
-        {/* Mobile menu trigger */}
-        <button
-          type="button"
-          onClick={onToggleMobileMenu}
-          className="lg:hidden p-2 rounded-xl text-[#6b778c] hover:text-[#292a2e] hover:bg-[#f8f8f8] focus:outline-none focus:ring-2 focus:ring-[#0065ff]/20 cursor-pointer"
-          aria-label="Open mobile navigation"
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h16"
-            />
-          </svg>
-        </button>
+    <header className="bg-[#141a16] border-b-4 border-black sticky top-0 z-40 shadow-xl shrink-0">
+      <div className="max-w-[1500px] mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          {/* Mobile menu trigger */}
+          <button
+            type="button"
+            onClick={onToggleMobileMenu}
+            className="lg:hidden pixel-btn pixel-btn-secondary p-2"
+            aria-label="Open mobile navigation"
+          >
+            <i className="fa-solid fa-bars text-green-400"></i>
+          </button>
 
-        {/* Header Title */}
-        <div className="flex items-center gap-2">
-          <span className="text-base sm:text-lg font-bold text-[#292a2e] tracking-tight">
+          {/* Header Title & Logo */}
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 bg-[#0088ff] border-2 border-black flex items-center justify-center text-white font-pixel-title text-base font-bold shadow-[2px_2px_0_#000]">
+              TM
+            </div>
+            <div>
+              <div className="font-pixel-title text-xs md:text-sm text-white tracking-wide">
+                Task Manager
+              </div>
+              <div className="text-xs text-gray-400 font-pixel-sub">
+                Internal Workspace
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Center Badge (Hidden on mobile) */}
+        <div className="hidden md:flex items-center space-x-3 bg-[#1b221d] px-4 py-1.5 border-2 border-black shadow-[2px_2px_0_#000]">
+          <h1 className="font-pixel-title text-xs text-green-400 tracking-wider">
             Task Management System
-          </span>
-          <span className="hidden sm:inline-block text-xs px-2 py-0.5 rounded-full bg-[#deebff] text-[#0065ff] font-semibold">
-            MVP
-          </span>
-        </div>
-      </div>
-
-      <div className="flex items-center gap-3">
-        {/* Active role badge */}
-        <div className="hidden sm:flex items-center gap-2 text-xs text-[#6b778c]">
-          <span>Role:</span>
-          <Badge variant="role" role={role} />
+          </h1>
+          <span className="pixel-badge badge-mvp">MVP</span>
         </div>
 
-        {/* Dev switch role button */}
-        <button
-          type="button"
-          onClick={onToggleRole}
-          className="text-xs font-semibold py-1.5 px-3 rounded-full bg-[#f8f8f8] border border-[#e2e8f0] text-[#0065ff] hover:bg-[#deebff]/40 transition-colors flex items-center gap-1.5 cursor-pointer"
-        >
-          <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
-            />
-          </svg>
-          <span className="hidden xs:inline">View as</span>{" "}
-          {role === "ADMIN" ? "User" : "Admin"}
-        </button>
+        <div className="flex items-center space-x-3">
+          {/* Role Tag */}
+          <div className="hidden sm:flex items-center space-x-2 text-xs font-pixel-sub bg-[#0f1411] px-3 py-1 border-2 border-black">
+            <span className="text-gray-400">Role:</span>
+            <span
+              className={`pixel-badge ${
+                role === "ADMIN" ? "badge-admin" : "badge-user"
+              }`}
+            >
+              <span
+                className={`w-1.5 h-1.5 rounded-full ${
+                  role === "ADMIN" ? "bg-blue-400" : "bg-emerald-400"
+                } dot-pulse`}
+              ></span>
+              {role === "ADMIN" ? "Admin" : "User"}
+            </span>
+          </div>
 
-        {/* User avatar indicator */}
-        <div className="w-8 h-8 rounded-full bg-[#deebff] text-[#0065ff] font-bold text-xs flex items-center justify-center border border-[#0065ff]/20">
-          {role === "ADMIN" ? "AU" : "AJ"}
+          {/* Dev switch role button */}
+          <button
+            type="button"
+            onClick={onToggleRole}
+            className="pixel-btn pixel-btn-secondary text-[9px] py-1 px-2.5 flex items-center space-x-1"
+          >
+            <i className="fa-solid fa-arrows-rotate"></i>
+            <span className="hidden xs:inline">
+              {role === "ADMIN" ? "User" : "Admin"}
+            </span>
+          </button>
+
+          {/* User avatar indicator */}
+          <div
+            className={`w-9 h-9 ${
+              role === "ADMIN" ? "bg-blue-600" : "bg-emerald-600"
+            } border-2 border-black flex items-center justify-center font-pixel-title text-xs text-white shadow-[2px_2px_0_#000]`}
+          >
+            {role === "ADMIN" ? "AU" : "AJ"}
+          </div>
         </div>
       </div>
     </header>

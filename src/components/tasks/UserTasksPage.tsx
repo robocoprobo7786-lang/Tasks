@@ -144,16 +144,16 @@ export const UserTasksPage: React.FC<UserTasksPageProps> = ({
   return (
     <div className="space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-[#e2e8f0]">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b-2 border-gray-800">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-[#deebff] text-[#0065ff] font-extrabold text-base flex items-center justify-center border-2 border-[#0065ff]/20 shrink-0">
+          <div className="w-12 h-12 bg-blue-600 border-2 border-black shadow-[2px_2px_0_#000] text-white font-pixel-title text-base flex items-center justify-center shrink-0">
             {getInitials(currentUser.name)}
           </div>
           <div>
-            <h1 className="text-2xl sm:text-3xl font-extrabold text-[#292a2e] tracking-tight">
+            <h1 className="font-pixel-title text-2xl sm:text-3xl text-white tracking-tight mb-2">
               My Tasks
             </h1>
-            <p className="text-sm text-[#6b778c] mt-0.5">
+            <p className="font-pixel-sub text-sm text-gray-400">
               {tasks.length} task{tasks.length !== 1 ? "s" : ""} assigned to you
             </p>
           </div>
@@ -161,17 +161,13 @@ export const UserTasksPage: React.FC<UserTasksPageProps> = ({
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col sm:flex-row gap-3">
+      <div className="flex flex-col sm:flex-row gap-3 pixel-card-sub p-4 mb-6">
         <div className="flex-1">
           <Input
             placeholder="Search my tasks…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            leftIcon={
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            }
+            leftIcon={<i className="fa-solid fa-magnifying-glass text-gray-500"></i>}
           />
         </div>
         <div className="w-full sm:w-auto sm:min-w-[160px]">
@@ -188,11 +184,9 @@ export const UserTasksPage: React.FC<UserTasksPageProps> = ({
               setSearch("");
               setPriorityFilter("ALL");
             }}
-            className="text-xs font-medium text-[#0065ff] hover:text-[#0052cc] transition-colors px-3 py-2 rounded-lg hover:bg-[#deebff]/40 cursor-pointer min-h-[44px] flex items-center gap-1.5 whitespace-nowrap"
+            className="text-xs font-pixel-sub text-red-500 hover:text-red-400 transition-colors py-2 cursor-pointer min-h-[44px] flex items-center gap-1.5 whitespace-nowrap"
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <i className="fa-solid fa-xmark"></i>
             Clear
           </button>
         )}
@@ -200,9 +194,9 @@ export const UserTasksPage: React.FC<UserTasksPageProps> = ({
 
       {/* Results count */}
       {hasFilters && (
-        <p className="text-sm text-[#6b778c]">
+        <p className="font-pixel-sub text-sm text-gray-400 mb-2">
           Showing{" "}
-          <span className="font-semibold text-[#292a2e]">
+          <span className="text-white font-bold">
             {filteredTasks.length}
           </span>{" "}
           of {tasks.length} tasks
@@ -240,8 +234,8 @@ export const UserTasksPage: React.FC<UserTasksPageProps> = ({
         <StatusGroup
           title="In Progress"
           count={groupedTasks.inProgress.length}
-          badgeStyles="bg-[#deebff] text-[#0065ff] border-[#0065ff]/20"
-          icon="◐"
+          badgeStyles="bg-amber-900 text-amber-100 border-amber-500"
+          icon={<i className="fa-solid fa-arrows-rotate text-amber-400"></i>}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {groupedTasks.inProgress.map((task) => (
@@ -261,8 +255,8 @@ export const UserTasksPage: React.FC<UserTasksPageProps> = ({
         <StatusGroup
           title="To Do"
           count={groupedTasks.todo.length}
-          badgeStyles="bg-slate-100 text-slate-600 border-slate-200"
-          icon="○"
+          badgeStyles="bg-gray-800 text-gray-300 border-gray-600"
+          icon={<i className="fa-regular fa-circle text-gray-400"></i>}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {groupedTasks.todo.map((task) => (
@@ -282,8 +276,8 @@ export const UserTasksPage: React.FC<UserTasksPageProps> = ({
         <StatusGroup
           title="Completed"
           count={groupedTasks.completed.length}
-          badgeStyles="bg-emerald-50 text-emerald-700 border-emerald-200"
-          icon="●"
+          badgeStyles="bg-emerald-900 text-emerald-100 border-emerald-500"
+          icon={<i className="fa-solid fa-circle-check text-emerald-400"></i>}
         >
           <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
             {groupedTasks.completed.map((task) => (
@@ -307,7 +301,7 @@ interface StatusGroupProps {
   title: string;
   count: number;
   badgeStyles: string;
-  icon: string;
+  icon: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -320,12 +314,12 @@ const StatusGroup: React.FC<StatusGroupProps> = ({
 }) => (
   <section>
     <div className="flex items-center gap-3 mb-4">
-      <h2 className="text-base font-bold text-[#292a2e] flex items-center gap-2">
-        <span className="text-sm" aria-hidden="true">{icon}</span>
+      <h2 className="font-pixel-title text-sm text-gray-300 flex items-center gap-2">
+        <span aria-hidden="true">{icon}</span>
         {title}
       </h2>
       <span
-        className={`text-xs px-2.5 py-0.5 rounded-full font-semibold border ${badgeStyles}`}
+        className={`pixel-badge ${badgeStyles}`}
       >
         {count}
       </span>

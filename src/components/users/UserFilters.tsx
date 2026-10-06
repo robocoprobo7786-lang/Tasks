@@ -43,18 +43,14 @@ export const UserFilters: React.FC<UserFiltersProps> = ({
     filters.status !== "ALL";
 
   return (
-    <div className={`space-y-4 ${className}`}>
+    <div className={`space-y-4 ${className} pixel-card-sub p-4 mb-6`}>
       <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-end">
         <div className="flex-1 w-full sm:w-auto">
           <Input
             placeholder="Search users by name, phone, or email…"
             value={filters.search}
             onChange={(e) => update({ search: e.target.value })}
-            leftIcon={
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            }
+            leftIcon={<i className="fa-solid fa-magnifying-glass text-gray-500"></i>}
           />
         </div>
         <div className="w-full sm:w-auto sm:min-w-[160px]">
@@ -83,11 +79,9 @@ export const UserFilters: React.FC<UserFiltersProps> = ({
                 status: "ALL",
               })
             }
-            className="text-xs font-medium text-[#0065ff] hover:text-[#0052cc] transition-colors px-3 py-2 rounded-lg hover:bg-[#deebff]/40 cursor-pointer min-h-[44px] flex items-center gap-1.5 whitespace-nowrap"
+            className="text-xs font-pixel-sub text-red-500 hover:text-red-400 transition-colors py-2 cursor-pointer min-h-[44px] flex items-center gap-1.5 whitespace-nowrap"
           >
-            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+            <i className="fa-solid fa-xmark"></i>
             Clear filters
           </button>
         )}

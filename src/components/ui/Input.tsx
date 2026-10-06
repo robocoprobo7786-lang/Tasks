@@ -30,7 +30,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-sm font-medium text-[#292a2e] flex items-center justify-between"
+            className="font-pixel-sub text-sm text-gray-400 flex items-center justify-between"
           >
             <span>{label}</span>
           </label>
@@ -38,7 +38,7 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
         <div className="relative flex items-center w-full">
           {leftIcon && (
-            <div className="absolute left-3.5 pointer-events-none text-[#6b778c]">
+            <div className="absolute left-3.5 pointer-events-none text-gray-500">
               {leftIcon}
             </div>
           )}
@@ -47,42 +47,30 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
             ref={ref}
             id={inputId}
             disabled={disabled}
-            className={`w-full bg-white text-[#292a2e] placeholder:text-[#6b778c] border rounded-xl text-sm transition-all duration-150 py-2.5 px-3.5 focus:outline-none focus:ring-2 disabled:bg-[#f8f8f8] disabled:cursor-not-allowed ${
+            className={`w-full bg-gray-900 text-white placeholder:text-gray-500 border-2 font-pixel-sub text-sm transition-all duration-150 py-2.5 px-3.5 focus:outline-none focus:shadow-[4px_4px_0_#000] disabled:bg-gray-800 disabled:cursor-not-allowed ${
               leftIcon ? "pl-10" : ""
             } ${rightIcon ? "pr-10" : ""} ${
               error
-                ? "border-[#ae2e24] focus:border-[#ae2e24] focus:ring-[#ae2e24]/20"
-                : "border-[#e2e8f0] focus:border-[#0065ff] focus:ring-[#0065ff]/20"
+                ? "border-red-500 focus:border-red-400"
+                : "border-gray-500 focus:border-green-400"
             } ${className}`}
             {...props}
           />
 
           {rightIcon && (
-            <div className="absolute right-3.5 text-[#6b778c]">
+            <div className="absolute right-3.5 text-gray-500">
               {rightIcon}
             </div>
           )}
         </div>
 
         {error ? (
-          <span className="text-xs font-medium text-[#ae2e24] flex items-center gap-1">
-            <svg
-              className="w-3.5 h-3.5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-              />
-            </svg>
+          <span className="font-pixel-sub text-xs text-red-500 flex items-center gap-1">
+            <i className="fa-solid fa-triangle-exclamation"></i>
             {error}
           </span>
         ) : helperText ? (
-          <span className="text-xs text-[#6b778c]">{helperText}</span>
+          <span className="font-pixel-sub text-xs text-gray-500">{helperText}</span>
         ) : null}
       </div>
     );

@@ -6,17 +6,10 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Card = React.forwardRef<HTMLDivElement, CardProps>(
   ({ children, variant = "default", className = "", ...props }, ref) => {
-    const variantStyles = {
-      default: "bg-white border border-[#e2e8f0] shadow-xs shadow-slate-200/50",
-      secondary: "bg-[#f8f8f8] border border-[#e2e8f0]",
-      outline: "bg-transparent border border-[#e2e8f0]",
-      flat: "bg-white border-none shadow-none",
-    };
-
     return (
       <div
         ref={ref}
-        className={`rounded-2xl p-5 sm:p-6 transition-all duration-150 ${variantStyles[variant]} ${className}`}
+        className={`pixel-card p-4 ${className}`}
         {...props}
       >
         {children}
@@ -32,7 +25,7 @@ export const CardHeader = ({
   children,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={`flex flex-col gap-1 mb-4 ${className}`} {...props}>
+  <div className={`flex items-center justify-between pb-3 mb-4 border-b-2 border-gray-800 ${className}`} {...props}>
     {children}
   </div>
 );
@@ -43,7 +36,7 @@ export const CardTitle = ({
   ...props
 }: React.HTMLAttributes<HTMLHeadingElement>) => (
   <h3
-    className={`text-lg sm:text-xl font-bold text-[#292a2e] tracking-tight ${className}`}
+    className={`font-pixel-title text-xs text-white ${className}`}
     {...props}
   >
     {children}
@@ -55,7 +48,7 @@ export const CardDescription = ({
   children,
   ...props
 }: React.HTMLAttributes<HTMLParagraphElement>) => (
-  <p className={`text-sm text-[#6b778c] ${className}`} {...props}>
+  <p className={`font-pixel-sub text-xs text-gray-400 ${className}`} {...props}>
     {children}
   </p>
 );
@@ -65,7 +58,7 @@ export const CardContent = ({
   children,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={`space-y-4 ${className}`} {...props}>
+  <div className={`space-y-3 ${className}`} {...props}>
     {children}
   </div>
 );
@@ -76,7 +69,7 @@ export const CardFooter = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={`flex items-center justify-between pt-4 mt-4 border-t border-[#e2e8f0] ${className}`}
+    className={`flex items-center justify-between pt-4 mt-4 border-t-2 border-gray-800 ${className}`}
     {...props}
   >
     {children}

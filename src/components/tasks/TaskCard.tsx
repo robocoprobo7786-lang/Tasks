@@ -53,7 +53,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
 
   return (
     <div
-      className={`bg-white border border-[#e2e8f0] border-l-4 ${borderColor} rounded-2xl p-4 shadow-xs shadow-slate-200/50 hover:shadow-sm hover:border-slate-300 transition-all duration-150 group`}
+      className={`bg-white/85 backdrop-blur-[20px] backdrop-saturate-180 border border-white/40 border-l-4 ${borderColor} rounded-2xl p-4 shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05),0_4px_6px_-2px_rgba(0,0,0,0.02)] hover:shadow-sm transition-all duration-150 group`}
     >
       {/* Title row */}
       <div className="flex items-start justify-between gap-2 mb-3">

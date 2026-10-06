@@ -1,9 +1,3 @@
-/**
- * src/components/dashboard/StatCard.tsx
- *
- * A compact metric card used in the summary rows at the top of both dashboards.
- * Accepts a label, numeric value, an optional icon, and an accent colour class.
- */
 import React from "react";
 
 export interface StatCardProps {
@@ -22,25 +16,23 @@ export const StatCard: React.FC<StatCardProps> = ({
   label,
   value,
   icon,
-  iconBg = "bg-[#deebff]",
-  iconColor = "text-[#0065ff]",
+  iconBg = "bg-gray-800",
+  iconColor = "text-gray-300",
   sub,
 }) => {
   return (
-    <div className="bg-white border border-[#e2e8f0] rounded-2xl p-5 flex items-center gap-4 shadow-xs shadow-slate-200/50 transition-all duration-150 hover:shadow-sm hover:border-slate-300">
+    <div className="pixel-card p-4 flex items-center space-x-4 hover:border-green-400 transition-all cursor-pointer">
       {icon && (
         <div
-          className={`shrink-0 w-11 h-11 rounded-xl flex items-center justify-center ${iconBg} ${iconColor}`}
+          className={`w-12 h-12 border-2 border-gray-500 flex items-center justify-center text-lg shadow-[2px_2px_0_#000] ${iconBg} ${iconColor}`}
         >
           {icon}
         </div>
       )}
-      <div className="min-w-0">
-        <p className="text-2xl font-extrabold text-[#292a2e] leading-none tabular-nums">
-          {value}
-        </p>
-        <p className="text-sm font-medium text-[#6b778c] mt-0.5 truncate">{label}</p>
-        {sub && <p className="text-xs text-[#6b778c] mt-0.5">{sub}</p>}
+      <div>
+        <div className="font-pixel-title text-xl text-white">{value}</div>
+        <div className="font-pixel-sub text-base text-gray-400">{label}</div>
+        {sub && <div className="font-pixel-sub text-xs text-gray-500 mt-1">{sub}</div>}
       </div>
     </div>
   );
